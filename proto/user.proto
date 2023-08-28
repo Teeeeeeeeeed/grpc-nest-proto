@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package user;
+
+service UserSerivce {
+  rpc CreateUser (User) returns (CreateUserResponse) {}
+  rpc CreateRestaurant (CreateRestaurantRequest) returns (CreateRestaurantResponse) {}
+  rpc CreateCritic (CreateCriticRequest) returns (CreateCriticResponse) {}
+  rpc CreateAward (CreateAwardRequest) returns (CreateAwardResponse) {}
+}
+
+message User {
+  string username = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  string verified = 7;
+}
+
+message CreateUserResponse {
+  string id = 1;
+  oneof userInfo {
+    User user = 2;
+  };
+  string createdAt = 5;
+  string updatedAt = 6;
+}
+
+message CreateAwardRequest {
+  oneof userInfo {
+    User user = 1;
+  };
+  string awardName = 2;
+  bool isGlobal = 3;
+  string businessEmail = 4;
+  string businessNumber = 5;
+}
+
+message CreateAwardResponse {
+  string id = 1;
+  oneof awardInfo {
+    CreateAwardRequest award = 2;
+  };
+}
+
+message CreateRestaurantRequest {
+  oneof restaurantInfo {
+    User userInfo = 1;
+  };
+  string resturantName = 2;
+  string phoneNumber = 3;
+  string businessEmail = 4;
+  string businessNumber = 5;
+}
+
+message CreateRestaurantResponse {
+  string id = 1;
+  oneof restaurantInfo {
+    CreateRestaurantRequest user = 2;
+  };
+}
+
+message CreateCriticRequest {
+  oneof userInfo {
+    User user = 1;
+  };
+  string businessEmail = 2;
+  string businessNumber = 3;
+}
+
+message CreateCriticResponse {
+  string id = 1;
+  oneof criticInfo {
+    CreateCriticRequest critic = 2;
+  };
+}
